@@ -1,0 +1,11 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Office temporary files
+~$*
+
+# Personal editor settings
+.vscode/
+.idea/
