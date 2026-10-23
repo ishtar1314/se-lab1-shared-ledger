@@ -2,367 +2,125 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>需求分析报告：多人共享记账系统</title>
+<title>需求分析报告</title>
 <style>
-  @page { size: A4; margin: 17mm 16mm 15mm 16mm; }
-  * { box-sizing: border-box; }
+  @page { size: A4; margin: 17mm 17mm 17mm 17mm; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body {
     margin: 0;
-    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "SimSun", sans-serif;
-    font-size: 10.5pt;
-    line-height: 1.62;
-    color: #1f2937;
+    font-family: "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: #111;
   }
-  h1 { font-size: 17pt; color: #0f3d6e; border-bottom: 2px solid #0f3d6e; padding-bottom: 4px; margin: 20px 0 10px; page-break-after: avoid; }
-  h2 { font-size: 13pt; color: #14508c; margin: 15px 0 7px; page-break-after: avoid; }
-  h3 { font-size: 11.5pt; color: #1f2937; margin: 12px 0 5px; page-break-after: avoid; }
-  p { margin: 5px 0; text-align: justify; orphans: 2; widows: 2; }
-  ul, ol { margin: 5px 0 5px 20px; padding: 0; }
-  li { margin: 2px 0; }
-  table { width: 100%; border-collapse: collapse; margin: 7px 0 10px; font-size: 9.2pt; page-break-inside: avoid; }
-  thead { display: table-header-group; }
-  th, td { border: 1px solid #cbd5e1; padding: 4px 5px; vertical-align: top; text-align: left; }
-  th { background: #eaf1f8; color: #0f3d6e; font-weight: 600; }
-  tr:nth-child(even) td { background: #fafcff; }
-  .small { font-size: 9pt; color: #4b5563; }
-  .muted { color: #6b7280; }
-  .callout { background: #f1f6fb; border-left: 4px solid #14508c; padding: 7px 10px; margin: 8px 0; font-size: 9.8pt; }
-  .warn { background: #fff8e6; border-left: 4px solid #b7791f; padding: 7px 10px; margin: 8px 0; font-size: 9.8pt; }
-  .tag { display: inline-block; padding: 0 5px; border-radius: 3px; font-size: 8.6pt; font-weight: 600; }
-  .tag-ok { background: #dcfce7; color: #166534; }
-  .tag-pending { background: #fef3c7; color: #92400e; }
-  .tag-void { background: #e5e7eb; color: #374151; }
-  .cover { height: 252mm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
-  .cover .bar { width: 60px; height: 5px; background: #14508c; margin: 0 auto 18px; }
-  .cover .course { font-size: 13pt; letter-spacing: 2px; color: #14508c; }
-  .cover .title { font-size: 30pt; font-weight: 700; color: #0f2742; margin: 10px 0 4px; }
-  .cover .subtitle { font-size: 15pt; color: #14508c; margin-bottom: 26px; }
-  .cover .project { font-size: 14pt; font-weight: 600; margin: 6px 0 30px; }
-  .cover table { width: 66%; margin: 0 auto; font-size: 10.5pt; border: none; }
-  .cover table td { border: none; padding: 3px 6px; background: transparent !important; }
-  .cover table td:first-child { text-align: right; color: #6b7280; width: 34%; }
-  .cover .foot { margin-top: 40px; font-size: 9.5pt; color: #6b7280; }
-  .flow { border: 1px solid #cbd5e1; border-radius: 5px; padding: 8px 10px; background: #fafcff; margin: 8px 0; page-break-inside: avoid; }
-  .flow-row { display: flex; align-items: stretch; gap: 5px; margin: 4px 0; }
-  .flow-box { flex: 1; border: 1px solid #9fb6cf; background: #fff; border-radius: 4px; padding: 5px 6px; font-size: 9pt; }
-  .flow-box b { color: #0f3d6e; }
-  .flow-arrow { align-self: center; color: #14508c; font-weight: 700; }
-  .kv td:first-child { width: 27%; color: #0f3d6e; font-weight: 600; }
-  .page-break { page-break-before: always; }
-  .no-break { page-break-inside: avoid; }
-  .hash { font-family: Consolas, "Courier New", monospace; font-size: 8.8pt; word-break: break-all; }
-  .state { font-weight: 600; color: #0f3d6e; }
+  h1.title {
+    font-size: 18pt;
+    font-weight: 700;
+    margin: 0 0 10pt;
+    line-height: 1.4;
+  }
+  p { margin: 0 0 6pt; text-align: justify; }
+  p.meta {
+    font-size: 11pt;
+    line-height: 1.9;
+    margin: 0;
+  }
+  p.note {
+    font-size: 9pt;
+    color: #333;
+    margin: 2pt 0 6pt;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #d9d9d9;
+    margin: 5pt 0 10pt;
+  }
+  h1 {
+    font-size: 14pt;
+    font-weight: 700;
+    margin: 15pt 0 8pt;
+    padding-bottom: 4pt;
+    line-height: 1.4;
+    border-bottom: 1px solid #d9d9d9;
+    page-break-after: avoid;
+  }
+  h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    margin: 11pt 0 5pt;
+    line-height: 1.45;
+    page-break-after: avoid;
+  }
+  .label { font-weight: 700; }
+  .req-example { page-break-inside: avoid; }
+  .keep { page-break-inside: avoid; }
 </style>
 </head>
 <body>
 
-<!-- 封面 -->
-<div class="cover">
-  <div class="bar"></div>
-  <div class="course">南京大学 · 软件工程 · 实验一</div>
-  <div class="title">需求分析报告</div>
-  <div class="subtitle">多人共享记账系统</div>
-  <div class="project">需求整理、AI 初稿与人工审查</div>
-  <table>
-    <tr><td>学号</td><td>241220040</td></tr>
-    <tr><td>姓名</td><td>甄博鏊</td></tr>
-    <tr><td>甲方</td><td>贾一帆</td></tr>
-    <tr><td>需求分析工程师</td><td>甄博鏊</td></tr>
-    <tr><td>版本</td><td>v1.0（lab1-final）</td></tr>
-    <tr><td>日期</td><td>2026-10-22</td></tr>
-  </table>
-  <div class="foot">本报告依据 chat.txt 的访谈、AI 交互与人工审查记录，以及 requirements.md 的最终需求编写。</div>
-</div>
+<h1 class="title">需求分析报告</h1>
+<p class="meta">项目名称：多人共享记账系统</p>
+<p class="meta">版本：v1.0　　日期：2026-10-23　　学号、姓名：241220040 甄博鏊</p>
+<p class="note">本报告依据 chat.txt 中的访谈、AI 交互与审查记录整理，完整需求以 requirements.md 为准。</p>
+<hr>
 
-<!-- 1 背景概述 -->
 <h1>1. 背景概述</h1>
+<p>本项目服务宿舍、班级小组、旅行同伴等需要共同记账的小团体。成员把共同收入和支出记在同一个账本里，按约定进行 AA 分摊和结算。当前常见做法是用聊天记录、表格或某个人的备忘录记账，记录分散，成员看不到完整账目；金额、类别和日期靠手工汇总，容易算错；缺少审核和结算流程，错账难以追溯和更正。甲方在访谈中的典型场景是“宿舍买东西后每个人算钱 AA，有点乱”，希望把宿舍收入和支出记在同一个账本里，方便管理（INT-01-L002）。</p>
+<p>项目目标是形成一份可直接用于后续设计、实现和测试的需求基线：让一个小团体在同一份可信账本上完成记账、审核、查询、统计和结算，并保留可追溯的操作记录。需求覆盖账号与账本、成员与权限、收支记录全生命周期、凭证管理、查询统计、预算结算、操作日志和质量要求，具体条目见 requirements.md。</p>
+<p>系统边界是“只记录已经发生的收支”，不接入真实支付、转账、银行卡或第三方支付接口；不做发票 OCR、真伪校验或拍摄角度不同的同一票据识别，只按文件内容是否完全相同判重（INT-01-L018）；不做多币种、汇率换算、税务申报和财务报表审计；不做第三方记账软件导入、银行流水自动同步和离线记账；不做平台级运营后台，是否需要“平台管理员”角色仍待确认，本期不纳入已确认范围。</p>
 
-<h2>1.1 服务对象与要解决的问题</h2>
-<p>本项目服务的是宿舍、班级小组、旅行同伴等需要共同记账的小团体。成员会把共同收入和支出记在同一个账本里，再按约定进行 AA 分摊和结算。当前做法通常是用聊天记录、表格或某一个人的备忘录记账，存在三个问题：一是记录分散，成员看不到完整账目；二是金额、类别和日期靠手工汇总，容易算错；三是缺少审核和结算流程，出现错账后难以追溯和更正。</p>
-<p>甲方在访谈中给出的典型场景是“宿舍买东西后每个人算钱 AA，有点乱”，希望把宿舍收入和支出记在同一个账本里，方便管理（INT-01-L002）。因此，系统要解决的核心问题是：让一个小团体在同一份可信账本上完成记账、审核、查询、统计和结算，并保留可追溯的操作记录。</p>
-
-<h2>1.2 项目目标</h2>
-<p>本项目的目标是形成一份可直接用于后续设计、实现、分析和测试的需求基线，覆盖以下业务能力：</p>
-<ul>
-  <li>账号、账本和成员关系：注册登录、创建账本、邀请码加入、退出账本。</li>
-  <li>角色与权限：普通成员、财务、管理员三种角色，权限相互约束，任何人不能审核本人提交的记录。</li>
-  <li>收支记录全生命周期：新增草稿、修改、删除、提交、撤回、审核、驳回、作废和更正。</li>
-  <li>凭证管理：支持 JPG、PNG、PDF，按文件内容识别完全相同的凭证，防止同一凭证被两笔有效记录重复使用。</li>
-  <li>查询与统计：按类别、成员、日期、金额和状态组合查询，提供分类统计、成员统计和预算执行情况。</li>
-  <li>结算与一致性：按期间生成结算快照，保证审核与结算并发时数据一致，结算关闭后禁止影响该期间的写入。</li>
-  <li>日志与质量：记录关键操作日志，明确安全、可靠性、易用性和性能的验收标准。</li>
-</ul>
-
-<h2>1.3 系统范围与明确不实现的内容</h2>
-<p>本期只做需求分析，不编写软件。需求描述以业务行为和验收标准为主，不限定前端形态、数据库产品或部署方式，这些留到后续设计实验确定。</p>
-<p>为避免范围膨胀，以下内容明确不实现：</p>
-<ul>
-  <li>不接入真实支付、转账、银行卡或第三方支付接口；系统只记录已经发生的收支，不代替支付工具。</li>
-  <li>不做发票 OCR、真伪校验或拍摄角度不同的同一票据识别；只按文件内容是否完全相同判重（INT-01-L018）。</li>
-  <li>不做多币种、汇率换算、税务申报和财务报表审计。</li>
-  <li>不做第三方记账软件导入、银行流水自动同步和离线记账。</li>
-  <li>不做平台级运营后台；是否需要“平台管理员”角色仍待确认，本期不纳入已确认范围。</li>
-</ul>
-
-<!-- 2 需求分析 -->
 <h1>2. 需求分析</h1>
-
 <h2>2.1 用户角色与业务模块</h2>
-<p>系统至少有三种用户类型：普通成员、财务和管理员。三者都在自己参加的账本内活动，不能查看未参加的账本（INT-01-L004）。角色权限如下表所示，完整字段见 requirements.md 的 REQ-005。</p>
-
-<table>
-  <thead><tr><th style="width:14%">角色</th><th style="width:38%">可以做什么</th><th style="width:34%">不能做什么</th><th style="width:14%">关联需求</th></tr></thead>
-  <tbody>
-    <tr><td><b>普通成员</b></td><td>注册登录；创建账本（创建后成为该账本管理员）；凭邀请码加入；新增收支记录；修改、删除自己的草稿；提交、撤回自己的记录；查看自己参加的账本；按条件查询和查看统计；对自己的已审核记录发起更正。</td><td>不能审核、驳回、作废他人记录；不能设置预算；不能执行结算；不能管理成员和分类；不能查看未参加的账本。</td><td>REQ-001～004、007、008、010、012、014、016</td></tr>
-    <tr><td><b>财务</b></td><td>审核、驳回他人提交的待审核记录；作废已审核记录；设置预算；按期间结算；发起更正；查看自己参加的账本。</td><td>不能审核本人提交的记录；不能管理成员和分类（除非同时是管理员）；不能查看未参加的账本。</td><td>REQ-005、009、011、012、015、017</td></tr>
-    <tr><td><b>管理员</b></td><td>管理账本成员和角色；生成邀请码；管理收支类别；拥有财务的审核、驳回、作废、预算、结算和更正权限；转让管理员。</td><td>不能审核本人提交的记录；不能绕过状态机、结算关闭和凭证唯一性规则；不能查看未参加的账本。</td><td>REQ-002～006、009、011、012、015、017</td></tr>
-  </tbody>
-</table>
-
-<div class="callout"><b>权限边界：</b>“不能审核自己交的那笔”是访谈中明确提出的硬约束（INT-01-L004）。因此 REQ-005 和 REQ-009 都重复写明该规则，避免只在角色说明里写、审核接口却漏实现。</div>
-
-<p>按业务模块划分，需求分布如下：</p>
-<table>
-  <thead><tr><th style="width:20%">模块</th><th style="width:48%">主要内容</th><th style="width:32%">需求编号</th></tr></thead>
-  <tbody>
-    <tr><td>账号与账本</td><td>注册登录、创建账本、邀请码加入、退出账本</td><td>REQ-001～004</td></tr>
-    <tr><td>成员与权限</td><td>三种角色、权限控制、成员和分类管理</td><td>REQ-005、REQ-006</td></tr>
-    <tr><td>记账与凭证</td><td>新增草稿、修改删除、凭证上传与重复校验</td><td>REQ-007、REQ-010、REQ-013</td></tr>
-    <tr><td>审核与状态</td><td>提交、撤回、审核、驳回、作废、更正、状态机</td><td>REQ-008、REQ-009、REQ-011、REQ-012、REQ-024</td></tr>
-    <tr><td>查询与统计</td><td>多条件查询、分类统计、成员统计</td><td>REQ-014、REQ-016</td></tr>
-    <tr><td>预算与结算</td><td>预算设置、期间结算、结算快照</td><td>REQ-015、REQ-017</td></tr>
-    <tr><td>日志与安全</td><td>关键操作日志、接口会话校验</td><td>REQ-018、REQ-019</td></tr>
-    <tr><td>质量与约束</td><td>并发一致性、易用性、性能、数据关联与唯一性</td><td>REQ-020～REQ-023</td></tr>
-  </tbody>
-</table>
-
-<h2>2.2 核心业务流程</h2>
-<p>主要业务流程可以概括为“建账—记账—审核—查询统计—结算”，错误记录通过“驳回后修改”“作废”或“更正”处理。流程如下：</p>
-
-<div class="flow">
-  <div class="flow-row"><div class="flow-box"><b>① 注册 / 登录</b><br>建立会话，未登录不能访问账本数据（REQ-001、REQ-019）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>② 创建账本 / 加入账本</b><br>创建者成为管理员；管理员发邀请码，其他用户凭码加入（REQ-002、REQ-003）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>③ 新增记录（草稿）</b><br>填写类型、金额、类别、日期、备注，可选凭证；金额和凭证先校验（REQ-007、REQ-013）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>④ 提交审核</b><br>草稿 → 待审核；提交人可在审核前撤回（REQ-008）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>⑤ 财务 / 管理员审核</b><br>通过 → 已审核；驳回 → 已驳回并记录原因；不能审核本人记录（REQ-009）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>⑥ 查询、统计、预算、结算</b><br>只统计已审核且未作废、未更正的记录；按期间生成结算快照（REQ-014～REQ-017）</div></div>
-  <div class="flow-row"><div class="flow-arrow">↓</div></div>
-  <div class="flow-row"><div class="flow-box"><b>⑦ 错误处理</b><br>已审核记录可作废，或发起更正；更正审核通过后原记录变为已更正，只有新记录计入统计（REQ-011、REQ-012）</div></div>
+<p>系统至少有三种用户类型：普通成员、财务和管理员。三者都在自己参加的账本内活动，不能查看未参加的账本（INT-01-L004）。</p>
+<p><span class="label">普通成员</span>可以注册登录、创建账本（创建后成为该账本管理员）、凭邀请码加入账本、新增收支记录、修改和删除自己的草稿、提交和撤回自己的记录、查看自己参加的账本、按条件查询和查看统计，并可对自己的已审核记录发起更正。普通成员不能审核、驳回或作废他人记录，不能设置预算，不能执行结算，不能管理成员和分类，也不能查看未参加的账本（REQ-001～REQ-004、REQ-007、REQ-008、REQ-010、REQ-012、REQ-014、REQ-016）。</p>
+<p><span class="label">财务</span>可以审核和驳回他人提交的待审核记录，作废已审核记录，设置预算，按期间结算，发起更正，并查看自己参加的账本。财务不能审核本人提交的记录，不负责成员和分类管理，也不能查看未参加的账本（REQ-005、REQ-009、REQ-011、REQ-012、REQ-015、REQ-017）。</p>
+<p><span class="label">管理员</span>可以管理账本成员和角色、生成邀请码、管理收支类别，并拥有财务的审核、驳回、作废、预算、结算和更正权限，还可以转让管理员。管理员同样不能审核本人提交的记录，不能绕过状态机、结算关闭和凭证唯一性规则，也不能查看未参加的账本（REQ-002～REQ-006、REQ-009、REQ-011、REQ-012、REQ-015、REQ-017）。</p>
+<p>按业务模块概括，需求分布为：账号与账本（REQ-001～REQ-004）、成员与权限（REQ-005、REQ-006）、记账与凭证（REQ-007、REQ-010、REQ-013）、审核与状态（REQ-008、REQ-009、REQ-011、REQ-012、REQ-024）、查询与统计（REQ-014、REQ-016）、预算与结算（REQ-015、REQ-017）、日志与安全（REQ-018、REQ-019）、质量与约束（REQ-020～REQ-023）。报告中不重复全部条目，完整字段和验收方法见 requirements.md。</p>
+<div class="req-example">
+<p><span class="label">需求ID：</span>REQ-013</p>
+<p><span class="label">需求描述：</span>新增或修改记录时可以上传 JPG、PNG、PDF 凭证；系统按文件内容哈希识别完全相同的文件。在同一账本内，一份凭证不能同时关联两笔处于待审核或已审核状态的记录；草稿和已驳回记录不占用凭证，更正可以沿用原凭证，但最终只有一笔计入统计和结算。</p>
+<p><span class="label">分析：</span>判重范围限定在“同一账本、待审核或已审核”，避免把局部规则写成全局规则而错误阻止草稿、已驳回和更正复用；并发上传同一凭证时只允许一笔进入待审核或已审核；验收需检查同账本重复上传、跨账本使用和更正沿用三种情况。完整字段参见 requirements.md。</p>
 </div>
 
-<p>其中，草稿和已驳回记录属于未进入正式账目的数据；待审核记录等待审核；已审核记录才进入查询、统计、预算和结算；已作废和已更正记录保留用于追溯，但不再计入金额。所有关键状态变化都写入操作日志（REQ-018）。</p>
+<h2>2.2 核心流程、数据与状态</h2>
+<p>主要业务流程可以概括为“建账—记账—审核—查询统计—结算”：用户注册登录后创建账本或凭邀请码加入；成员新增收支记录，先保存为草稿；草稿提交后进入待审核，财务或管理员审核通过后变为已审核，驳回则变为已驳回并记录原因；已审核记录进入查询、统计、预算和结算；错误记录通过作废或更正处理。关键状态变化写入操作日志（REQ-018）。</p>
+<p>系统需要保存用户、账本、账本成员、类别、收支记录、凭证、更正申请、预算、结算和操作日志。核心关系是：用户通过账本成员关系加入账本，账本成员由账本 ID 和用户 ID 唯一确定；收支记录关联账本、提交人和类别，凭证关联记录；更正记录关联原记录；结算快照关联账本和期间。收支记录编号唯一，金额最多两位小数、最高 100 万元；同一账本、同一类型下的类别名称唯一；同一原记录同时只能有一条待审核更正；同一账本内一份凭证不能同时用于两笔待审核或已审核记录（REQ-023）。</p>
+<p>一致性规则是：记录状态变化必须同步影响查询、统计和结算；更正审核通过时，原记录变为已更正、新记录变为已审核，统计只算新记录，这些变化应在同一事务内完成；结算的待审核检查、汇总和快照写入必须在同一事务的一致视图中完成（REQ-012、REQ-017、REQ-020）。</p>
+<p>收支记录有六个状态：草稿、待审核、已审核、已驳回、已作废、已更正。允许的转换是：草稿→待审核；待审核→已审核、已驳回或草稿（撤回）；已驳回→草稿（修改后重新提交）；已审核→已作废，或更正审核通过后→已更正。禁止草稿直接变为已审核、已审核直接变为待审核、已作废或已更正再变为其他状态；所有非法转换都应被拒绝且不改变数据（REQ-024）。</p>
+<p>草稿和已驳回记录属于未进入正式账目的数据；待审核记录等待审核；已审核记录才进入查询、统计、预算和结算；已作废和已更正记录保留用于追溯，但不再计入金额。</p>
+<p>失败、撤销和冲突的处理规则是：审核不通过时退回已驳回并记录原因，提交人修改后重新提交；提交人可以在审核完成前撤回，撤回后回到草稿；已审核记录不能直接修改或删除，只能由财务或管理员作废，或走更正流程；同一原记录同时只能有一条待审核更正，并发发起时只有一条成功；审核与结算并发时，审核先完成则结算必须包含该记录，结算先合法关闭则后续影响该期间的写入必须失败；已结算期间的写入全部失败并提示期间已关闭（REQ-008、REQ-009、REQ-012、REQ-017、REQ-020、REQ-024）。</p>
 
-<h2>2.3 数据关系、唯一性与同步规则</h2>
-<p>系统需要保存用户、账本、账本成员、类别、收支记录、凭证、更正申请、预算、结算和操作日志。核心关系是：用户通过账本成员关系加入账本；收支记录关联账本、提交人和类别；凭证关联记录；更正记录关联原记录；结算快照关联账本和期间。主要数据对象如下：</p>
-
-<table>
-  <thead><tr><th style="width:15%">数据对象</th><th style="width:30%">关键内容</th><th style="width:27%">关联关系</th><th style="width:28%">唯一性 / 同步规则</th></tr></thead>
-  <tbody>
-    <tr><td>用户</td><td>用户编号、用户名、密码哈希、账号状态</td><td>一对多关联账本成员、收支记录、操作日志</td><td>用户名唯一；密码只保存哈希，不保存明文</td></tr>
-    <tr><td>账本</td><td>账本编号、名称、创建者、状态</td><td>一对多关联成员、类别、记录、预算、结算</td><td>账本编号唯一；创建者默认为管理员</td></tr>
-    <tr><td>账本成员</td><td>账本、用户、角色、成员状态、加入/退出时间</td><td>关联用户和账本</td><td>（账本ID，用户ID）唯一；角色变更立即生效；退出后旧会话失效</td></tr>
-    <tr><td>类别</td><td>类别编号、账本、名称、收入/支出类型、启用状态</td><td>关联账本和收支记录</td><td>同一账本、同一类型下名称唯一；被引用后只能停用，不能删除</td></tr>
-    <tr><td>收支记录</td><td>记录编号、账本、提交人、类型、金额、类别、日期、备注、凭证、状态、版本号</td><td>关联账本、提交人、类别、凭证、更正申请</td><td>记录编号唯一；状态变化同步查询、统计和结算；金额最多两位小数、最高100万元</td></tr>
-    <tr><td>凭证</td><td>凭证编号、账本、文件哈希、存储路径、上传人</td><td>关联收支记录</td><td>同一账本内不能同时关联两笔待审核或已审核记录；草稿/已驳回不占用；更正可沿用但最终只算一笔</td></tr>
-    <tr><td>更正申请</td><td>更正编号、原记录、新记录、状态、原因</td><td>关联原记录和新记录</td><td>同一原记录同时只能有一条待审核更正；更正通过后原记录变为已更正</td></tr>
-    <tr><td>预算</td><td>预算编号、账本、类别、期间、金额</td><td>关联账本和类别</td><td>同一账本、类别、期间只保留一条有效预算；重复设置是覆盖还是拒绝待确认</td></tr>
-    <tr><td>结算</td><td>结算编号、账本、期间、快照、结算人、结算时间</td><td>关联账本和操作人</td><td>快照只读；结算关闭后影响该期间的写入必须失败；期间是否允许重叠待确认</td></tr>
-    <tr><td>操作日志</td><td>日志编号、账本、操作人、操作类型、对象、前后状态、时间</td><td>关联操作人和业务对象</td><td>只追加，不修改、不删除；不保存明文密码和完整凭证内容</td></tr>
-  </tbody>
-</table>
-
-<div class="callout"><b>一致性要点：</b>记录状态变化必须同步影响查询、统计和结算；更正审核通过时，原记录变为已更正、新记录变为已审核、统计只算新记录，这些变化应在同一事务内完成（REQ-012、REQ-023）。结算的待审核检查、汇总和快照写入必须在同一事务的一致视图中完成（REQ-017、REQ-020）。</div>
-
-<h2>2.4 业务状态与状态转换</h2>
-<p>收支记录是本系统最核心的业务信息。按实验要求，至少列出四个有效状态；本需求定义了六个状态：草稿、待审核、已审核、已驳回、已作废、已更正。状态转换规则见下表（完整约束见 REQ-024）。</p>
-
-<table>
-  <thead><tr><th style="width:11%">状态</th><th style="width:20%">含义</th><th style="width:25%">允许的转换</th><th style="width:25%">禁止的转换</th><th style="width:19%">触发角色 / 条件</th></tr></thead>
-  <tbody>
-    <tr><td class="state">草稿</td><td>已保存但未提交，可继续修改</td><td>提交 → 待审核；删除</td><td>直接 → 已审核、已作废、已更正</td><td>提交人</td></tr>
-    <tr><td class="state">待审核</td><td>已提交，等待财务或管理员处理</td><td>通过 → 已审核；驳回 → 已驳回；撤回 → 草稿</td><td>直接 → 已作废、已更正；被他人撤回</td><td>财务/管理员审核；提交人撤回</td></tr>
-    <tr><td class="state">已审核</td><td>审核通过，进入正式账目</td><td>作废 → 已作废；更正审核通过 → 已更正</td><td>直接修改、删除、回到待审核</td><td>财务/管理员作废；更正审核通过</td></tr>
-    <tr><td class="state">已驳回</td><td>审核不通过，保留驳回原因</td><td>修改 → 草稿，再重新提交</td><td>直接 → 已审核；直接删除（是否允许待确认）</td><td>提交人修改；财务/管理员驳回</td></tr>
-    <tr><td class="state">已作废</td><td>已审核记录被财务/管理员作废</td><td>无</td><td>任何状态转换</td><td>财务/管理员</td></tr>
-    <tr><td class="state">已更正</td><td>已被新记录替代，保留追溯</td><td>无</td><td>任何状态转换</td><td>更正审核通过后自动进入</td></tr>
-  </tbody>
-</table>
-
-<div class="warn"><b>禁止转换的原因：</b>草稿直接变已审核会跳过审核；已审核直接变待审核会绕过更正流程，破坏原记录的可追溯性；已作废和已更正再变其他状态会让统计和结算重复计算。所有非法转换都应被拒绝且不改变数据（REQ-024）。</div>
-
-<h2>2.5 异常、边界与冲突处理</h2>
-<p>需求中至少明确处理了以下异常和冲突场景，每条都有对应的验收方法：</p>
-<table>
-  <thead><tr><th style="width:24%">场景</th><th style="width:56%">处理规则</th><th style="width:20%">依据</th></tr></thead>
-  <tbody>
-    <tr><td>非法金额</td><td>金额必须大于0、最多两位小数、最高100万元；不满足时拒绝保存并提示，不产生记录。</td><td>INT-01-L008；REQ-007</td></tr>
-    <tr><td>重复提交</td><td>同一请求重发返回原记录或当前状态，不新增重复记录；幂等机制假设由客户端生成请求号。</td><td>实验要求三.1；REQ-007、REQ-008</td></tr>
-    <tr><td>审核人 = 提交人</td><td>拒绝审核并提示转交其他财务或管理员；不能通过任何接口绕过。</td><td>INT-01-L004；REQ-005、REQ-009</td></tr>
-    <tr><td>重复凭证</td><td>同一账本内一份凭证不能同时用于两笔待审核或已审核记录；草稿/已驳回可复用；更正可沿用但最终只算一笔。</td><td>INT-01-L016、L018；REQ-013</td></tr>
-    <tr><td>多笔待审核更正</td><td>同一原记录同时只能有一条待审核更正；并发发起只有一条成功；驳回后原记录保持已审核，可重新发起。</td><td>INT-01-L012；REQ-012、REQ-023</td></tr>
-    <tr><td>审核与结算并发</td><td>待审核检查、汇总和快照写入在同一事务的一致视图中完成；审核先完成则结算包含该记录；结算先关闭则后续影响该期间的写入失败。</td><td>INT-02-L003、L004；REQ-017、REQ-020</td></tr>
-    <tr><td>退出时账目未结清</td><td>存在待审核记录、未完成更正或未结清余额时拒绝退出；唯一管理员需先转让。</td><td>INT-01-L006；REQ-004</td></tr>
-    <tr><td>邀请码无效 / 重复加入</td><td>无效、过期或已用完的邀请码拒绝；已是成员重复加入返回原成员关系，不重复创建。</td><td>INT-01-L006；REQ-003</td></tr>
-    <tr><td>重复审核 / 重复作废</td><td>返回当前结果，不重复写日志；非待审核不能审核，已作废/已更正不能再次作废。</td><td>REQ-009、REQ-011</td></tr>
-    <tr><td>已结算期间写入</td><td>新增、修改、作废、更正等影响已关闭期间的写入全部失败，并提示期间已关闭。</td><td>INT-02-L004；REQ-017、REQ-020</td></tr>
-    <tr><td>越权访问</td><td>每个请求都校验身份和权限；退出后旧会话立即失效；成员只能访问自己参加的账本。</td><td>INT-02-L001、L002；REQ-019</td></tr>
-  </tbody>
-</table>
-
-<!-- 3 非功能性需求 -->
 <h1>3. 非功能性需求</h1>
-<p>非功能需求都写明了对象、条件和判断标准，避免只写“快速”“安全”“稳定”。其中 REQ-019、REQ-020、REQ-021 已确认；REQ-022 的指标尚未得到甲方确认，保持“待确认”，不计入已确认数量。</p>
+<p>非功能需求都写明对象、条件和验收标准，不只写“快速”“安全”“稳定”。已确认的非功能需求有 3 条（REQ-019、REQ-020、REQ-021）；REQ-022 的查询性能指标尚未得到甲方确认，保持“待确认”，不计入已确认数量。</p>
+<p><span class="label">安全性（REQ-019）：</span>系统对每个请求执行身份和权限校验；用户退出后，旧会话立即失效，不能继续访问任何账本数据。验收时用退出后的旧会话凭证调用账本查询、记录新增、审核、结算等至少 20 个接口，全部应返回 401 或 403；未登录直接调用同样应被拒绝。</p>
+<p><span class="label">可靠性/一致性（REQ-020）：</span>结算时的待审核检查、汇总计算和快照写入必须在同一事务的一致视图中完成；审核先完成时结算必须包含该记录，结算先合法关闭时后续影响该期间的写入必须失败。验收时并发执行审核和结算 100 轮，快照应无遗漏、无重复；结算关闭后并发写入 100 次，应全部失败且数据不变。</p>
+<p><span class="label">易用性（REQ-021）：</span>系统提供建账、记账提交、查统计三项任务的操作说明，并建立 12 个角色的使用用例。邀请 1 至 2 名未使用过系统的测试者，阅读说明后在不接受口头帮助的情况下独立完成三项任务；至少 1 名测试者三项全部独立完成视为通过，记录完成情况、耗时和卡点。</p>
+<p><span class="label">性能（REQ-022，待确认）：</span>在约定测试环境下，账本记录达到 1 万条、20 个并发用户时，100 次多条件查询至少 95 次在 2 秒内成功返回；失败和超时计入未达标次数，不从 100 次中剔除；超过 1 万条时另行约定。当前指标是待确认假设，不能写成已确认。</p>
 
-<table>
-  <thead><tr><th style="width:10%">编号</th><th style="width:12%">类别</th><th style="width:22%">对象与条件</th><th style="width:44%">通过标准</th><th style="width:12%">状态</th></tr></thead>
-  <tbody>
-    <tr><td>REQ-019</td><td>安全性</td><td>所有接口请求；用户退出后的旧会话</td><td>每个请求都执行身份和权限校验；退出后用旧会话凭证调用账本查询、记录新增、审核、结算等至少20个接口，全部返回401或403；未登录直接调用同样被拒绝。</td><td><span class="tag tag-ok">已确认</span></td></tr>
-    <tr><td>REQ-020</td><td>可靠性 / 一致性</td><td>同一期间的审核与结算并发</td><td>待审核检查、汇总和快照写入在同一事务的一致视图中完成；并发执行审核和结算100轮，快照无遗漏、无重复；结算关闭后并发写入100次，全部失败且数据不变。</td><td><span class="tag tag-ok">已确认</span></td></tr>
-    <tr><td>REQ-021</td><td>易用性</td><td>建账、记账提交、查统计三项任务；1至2名未使用过系统的测试者</td><td>提供12个角色的使用用例和操作说明；测试者阅读说明后无需口头帮助即可完成三项任务；至少1名测试者三项全部独立完成视为通过；记录完成情况、耗时和卡点。</td><td><span class="tag tag-ok">已确认</span></td></tr>
-    <tr><td>REQ-022</td><td>性能</td><td>1万条账本记录、20个并发用户、100次多条件查询</td><td>至少95次在2秒内成功返回；失败和超时计入未达标，不从100次中剔除；超过1万条时另行约定。当前指标为待确认假设。</td><td><span class="tag tag-pending">待确认</span></td></tr>
-  </tbody>
-</table>
-
-<div class="callout"><b>为什么这样写：</b>安全性用“20个接口、401/403”验收；一致性用“100轮并发、关闭后100次写入失败”验收；易用性用“测试者独立完成三项任务”验收；性能用“数据规模、并发数、次数、耗时阈值”验收。这样后续测试实验可以直接转化为测试用例。</div>
-
-<!-- 4 结论 -->
 <h1>4. 结论</h1>
+<p>本需求覆盖账号与账本、成员与权限、收支记录全生命周期、凭证管理、查询统计、预算结算、操作日志和质量要求，可以支持后续设计、实现和测试。最终需求共 24 条（REQ-001～REQ-024），已确认 23 条；其中功能需求 18 条，已确认非功能需求 3 条，待确认非功能需求 1 条，约束 2 条；明确处理异常、边界或冲突的需求有 10 条以上。每条需求的完整字段和验收方法见 requirements.md。</p>
 
 <h2>4.1 歧义、冲突与 AI 审查</h2>
-<h3>4.1.1 访谈中的歧义与待确认项</h3>
-<p>访谈和实验要求中仍有若干没有给出明确答案的内容。按照实验要求，这些内容没有写成“已确认”，而是在 requirements.md 中标为“待确认”或“假设”：</p>
-<ul>
-  <li>邀请码是否一次性、有效期多久（REQ-003）。</li>
-  <li>凭证文件的大小上限（REQ-013）。</li>
-  <li>同一账本、类别、期间重复设置预算时是覆盖还是拒绝（REQ-015）。</li>
-  <li>同一期间重复结算时是拒绝还是生成新版本（REQ-017）。</li>
-  <li>是否需要“平台管理员”角色，以及平台管理员能看哪些数据（REQ-018）。</li>
-  <li>同一账号连续登录失败后的锁定策略（REQ-001）；本期未确认前不实现。</li>
-  <li>成员退出后能否自行恢复成员关系，还是必须重新邀请（REQ-004）。</li>
-  <li>唯一管理员退出时如何转让管理员的具体规则（REQ-004）。</li>
-  <li>查询性能的具体指标（REQ-022）；报告中给出的“1万条、20并发、95次2秒内”是待确认假设。</li>
-</ul>
-
-<h3>4.1.2 需求之间的冲突与处理</h3>
-<table>
-  <thead><tr><th style="width:30%">冲突 / 歧义</th><th style="width:42%">处理结果</th><th style="width:28%">依据</th></tr></thead>
-  <tbody>
-    <tr><td>“成员可以自由退出”与“先处理完自己的账”</td><td>保留“可以退出”，但增加前置条件：没有待审核记录、未完成更正、未结清余额；唯一管理员需先转让。</td><td>INT-01-L006；REQ-004</td></tr>
-    <tr><td>“同一凭证不能重复”与“更正可以沿用旧凭证”</td><td>限制改为“同一账本内不能同时用于两笔待审核或已审核记录”；草稿/已驳回不占用；更正可沿用但最终只算一笔。</td><td>INT-01-L016、L018；REQ-013</td></tr>
-    <tr><td>“提交审核”与“撤回”</td><td>REQ-008 扩展为“提交审核与撤回”，与 REQ-024 状态机的“待审核→草稿”转换一致。</td><td>实验要求三.1；REQ-008、REQ-024</td></tr>
-    <tr><td>“财务/管理员可以审核”与“不能审核自己交的那笔”</td><td>在 REQ-005 和 REQ-009 同时写明：操作者不能是记录提交人；审核本人记录被拒绝。</td><td>INT-01-L004；REQ-005、REQ-009</td></tr>
-    <tr><td>“结算生成快照”与“审核和结算同时发生”</td><td>REQ-017 增加同一事务一致视图、审核先完成则结算包含、结算先关闭则后续写入失败；REQ-020 给出并发验收标准。</td><td>INT-02-L003、L004；REQ-017、REQ-020</td></tr>
-  </tbody>
-</table>
-
-<h3>4.1.3 AI 的作用与局限</h3>
-<p>本次实验先用 AI 生成第一版需求，再进行人工审查。AI 第一次生成了 24 条需求，覆盖了角色权限、记录状态、数据关系、查询统计、异常处理、日志和非功能需求，明显减少了从访谈记录整理字段的时间。AI 对模板的 10 个字段掌握得比较完整，也能主动把“不能审核本人记录”“更正只算新记录”等访谈原话写进需求。</p>
-<p>但 AI 初稿存在三类问题，必须人工核对：</p>
-<ul>
-  <li><b>把局部规则写成全局规则。</b>例如把“同一账本内一份凭证不能同时用于两笔待审核/已审核记录”写成“同一凭证不能重复上传”，会错误阻止草稿、已驳回和更正复用（REV-004）。</li>
-  <li><b>跨条目一致性不足。</b>例如 REQ-005 写了“不能审核本人记录”，REQ-009 的审核需求却没有重复；REQ-024 状态机有“撤回”，REQ-008 却没有撤回功能（REV-002、REV-006）。</li>
-  <li><b>容易补出看似合理但未经确认的指标。</b>例如性能数字、邀请码有效期、文件大小限制等。本次审查把没有访谈依据的内容标为“待确认”或“假设”，没有写成已确认。</li>
-</ul>
-<p>人工审查共记录 6 条代表性结果（REV-001～REV-006），涉及退出条件、审核权限、更正唯一性、凭证复用、结算并发和撤回。每条都写明了 AI 原始内容、发现的问题、核对依据、最终处理和处理理由。原始初稿保存在 <span class="hash">lab1-ai-draft</span> 标签，最终版保存在 <span class="hash">lab1-final</span> 标签，审查过程没有覆盖原始记录。</p>
-
-<h3>4.1.4 最终需求统计</h3>
-<table>
-  <thead><tr><th>统计项</th><th>数量</th><th>说明</th></tr></thead>
-  <tbody>
-    <tr><td>需求总数</td><td>24</td><td>REQ-001～REQ-024</td></tr>
-    <tr><td>已确认</td><td>23</td><td>满足“至少15条已确认”</td></tr>
-    <tr><td>功能需求</td><td>18</td><td>满足“功能需求不少于10条”</td></tr>
-    <tr><td>非功能需求（已确认）</td><td>3</td><td>REQ-019、REQ-020、REQ-021，满足“不少于3条”</td></tr>
-    <tr><td>非功能需求（待确认）</td><td>1</td><td>REQ-022 查询性能，不计入已确认</td></tr>
-    <tr><td>约束</td><td>2</td><td>REQ-023 数据关联与唯一性、REQ-024 状态机</td></tr>
-    <tr><td>异常/边界/冲突需求</td><td>10 条以上</td><td>REQ-004、007、008、009、012、013、017、019、020、024 等，满足“至少5条”</td></tr>
-    <tr><td>人工审查记录</td><td>6</td><td>REV-001～REV-006，满足“至少3项”</td></tr>
-  </tbody>
-</table>
+<p>访谈和课程要求中仍有若干没有明确答案的内容。按照实验要求，这些内容没有写成“已确认”，而是在 requirements.md 中标为“待确认”或“假设”，包括：邀请码是否一次性、有效期多久（REQ-003）；凭证文件的大小上限（REQ-013）；同一账本、类别、期间重复设置预算时是覆盖还是拒绝（REQ-015）；同一期间重复结算时是拒绝还是生成新版本（REQ-017）；是否需要“平台管理员”角色及其数据范围（REQ-018）；同一账号连续登录失败后的锁定策略（REQ-001）；成员退出后能否自行恢复成员关系（REQ-004）；唯一管理员退出时如何转让管理员的具体规则（REQ-004）；查询性能的具体指标（REQ-022，报告中给出的“1 万条、20 并发、95 次 2 秒内”是待确认假设）。</p>
+<p>需求之间的主要冲突和处理结果如下：“成员可以自由退出”与“先处理完自己的账”冲突，最终保留退出能力，但在 REQ-004 增加前置条件：没有待审核记录、没有未完成更正、往来和余额已结清，唯一管理员需先转让；“同一凭证不能重复”与“更正可以沿用旧凭证”冲突，最终把限制改为“同一账本内不能同时用于两笔待审核或已审核记录”，草稿、已驳回和更正不受错误阻止（REQ-013）；“提交审核”与“撤回”在初稿中不一致，REQ-008 扩展为“提交审核与撤回”，与 REQ-024 的待审核→草稿转换一致；“财务/管理员可以审核”与“不能审核自己交的那笔”冲突，REQ-005 和 REQ-009 同时写明操作者不能是记录提交人；“结算生成快照”与“审核和结算同时发生”冲突，REQ-017 增加同一事务一致视图、审核先完成则结算包含、结算先关闭则后续写入失败，REQ-020 给出并发验收标准。</p>
+<p>本次实验先用 AI 生成第一版需求，再进行人工审查。AI 第一次生成了 24 条需求，覆盖角色权限、记录状态、数据关系、查询统计、异常处理、日志和非功能需求，明显减少了从访谈记录整理字段的时间；AI 对 10 个字段的掌握比较完整，也能把“不能审核本人记录”“更正只算新记录”等访谈原话写进需求。但初稿存在三类问题，必须人工核对：一是把局部规则写成全局规则，例如把“同一账本内一份凭证不能同时用于两笔待审核/已审核记录”写成“同一凭证不能重复上传”，会错误阻止草稿、已驳回和更正复用（REV-004）；二是跨条目一致性不足，例如 REQ-005 写了“不能审核本人记录”，REQ-009 却没有重复，REQ-024 状态机有“撤回”，REQ-008 却没有撤回功能（REV-002、REV-006）；三是容易补出看似合理但未经确认的指标，例如性能数字、邀请码有效期和文件大小限制，本次审查把没有访谈依据的内容标为“待确认”或“假设”。</p>
+<p class="keep">人工审查共记录 6 条代表性结果（REV-001～REV-006），涉及退出条件、审核权限、更正唯一性、凭证复用、结算并发和撤回；每条都写明 AI 原始内容、发现的问题、核对依据、最终处理和处理理由。原始初稿保存在 lab1-ai-draft 标签，最终版保存在 lab1-final 标签，审查过程没有覆盖原始记录。AI 提供整理建议，最终范围与验收条件需要核对来源；本次没有为了制造 diff 而修改。</p>
 
 <h2>4.2 最终需求基线说明</h2>
-<table class="kv">
-  <tbody>
-    <tr><td>仓库地址</td><td><span class="hash">https://github.com/ishtar1314/se-lab1-shared-ledger</span></td></tr>
-    <tr><td>分支名称</td><td><span class="hash">main</span></td></tr>
-    <tr><td>lab1-ai-draft 完整提交哈希</td><td><span class="hash">d692c6f1d6037f97722447cb73aa41653f89ad08</span></td></tr>
-    <tr><td>lab1-final 完整提交哈希</td><td><span class="hash">5b12aa14164eceddf18daee7cbbb9db50632edc2</span></td></tr>
-    <tr><td>最终文件</td><td>requirements.md、chat.txt；report.pdf 为提交报告，仓库可另行附上</td></tr>
-  </tbody>
-</table>
-<p>两个标签均创建后未移动、未删除、未覆盖。提交的 requirements.md 和 chat.txt 应与 lab1-final 中的同名文件逐字节一致；压缩包中只放 report.pdf、requirements.md 和 chat.txt 三个文件。</p>
+<p>仓库地址：https://github.com/ishtar1314/se-lab1-shared-ledger</p>
+<p>分支名称：main</p>
+<p>lab1-ai-draft 完整提交哈希：d692c6f1d6037f97722447cb73aa41653f89ad08</p>
+<p>lab1-final 完整提交哈希：13b199baac042d4c9bfc17a7609fd088cd697bd9</p>
+<p>固定标签后填写上述信息并导出报告。提交的 requirements.md 和 chat.txt 须与 lab1-final 中的同名文件逐字节一致。压缩包中只放 report.pdf、requirements.md 和 chat.txt 三个文件。</p>
 
-<!-- 附录 -->
-<h1>附录 A. 关键访谈摘录</h1>
-<table>
-  <thead><tr><th style="width:15%">编号</th><th style="width:60%">内容摘要</th><th style="width:25%">对应需求</th></tr></thead>
-  <tbody>
-    <tr><td>INT-01-L002</td><td>宿舍共同收支，AA 记账混乱，希望把收入和支出记在同一个账本里。</td><td>REQ-002、REQ-014</td></tr>
-    <tr><td>INT-01-L004</td><td>普通成员、财务、管理员三种角色；财务和管理员可审核、设预算、结算，但不能审核自己交的那笔；成员只看自己参加的账本。</td><td>REQ-005、REQ-009、REQ-015、REQ-017</td></tr>
-    <tr><td>INT-01-L006</td><td>注册登录后创建账本，创建者默认管理员；管理员发邀请码；成员可以自由退出，但要先处理完自己的账。</td><td>REQ-001～REQ-004</td></tr>
-    <tr><td>INT-01-L008</td><td>记录包含收入/支出、金额、类别、日期、备注，可选照片；金额大于零、最多两位小数、最高100万元。</td><td>REQ-007</td></tr>
-    <tr><td>INT-01-L010</td><td>先存草稿，提交后审核；通过改已审核，不通过驳回并告知原因；草稿可删，已审核不能直接改删，作废找财务或管理员。</td><td>REQ-008～REQ-011</td></tr>
-    <tr><td>INT-01-L012</td><td>已审核记录可申请更正；一笔账同时只留一个待审核的更正。</td><td>REQ-012、REQ-023</td></tr>
-    <tr><td>INT-01-L014</td><td>按类别、成员、日期、金额范围查询，可勾选状态；只算已审核且未作废，更正后只算新的。</td><td>REQ-014、REQ-016</td></tr>
-    <tr><td>INT-01-L016</td><td>同一账本里一份凭证不能同时用在两笔待审核或已审核的账上；更正可沿用旧凭证，但最后只能算一笔。</td><td>REQ-013</td></tr>
-    <tr><td>INT-01-L018</td><td>支持 JPG、PNG、PDF；只检查内容完全一样的文件，不识别发票具体内容。</td><td>REQ-013</td></tr>
-    <tr><td>INT-02-L002</td><td>每个请求都检查；退出后旧会话无访问权。</td><td>REQ-019</td></tr>
-    <tr><td>INT-02-L004</td><td>待审核检查、汇总及快照写入按同一事务一致视图执行；审核先完成结算必须包含，结算先关闭后续写入必须失败。</td><td>REQ-017、REQ-020</td></tr>
-    <tr><td>INT-02-L006</td><td>建立12个角色的使用用例；1至2名未使用过系统的测试者，看完说明后独立完成建账、记账提交、查统计。</td><td>REQ-021</td></tr>
-  </tbody>
-</table>
-
-<h1>附录 B. 需求清单</h1>
-<table>
-  <thead><tr><th style="width:10%">编号</th><th style="width:30%">名称</th><th style="width:16%">类型</th><th style="width:12%">状态</th><th style="width:32%">主要来源</th></tr></thead>
-  <tbody>
-    <tr><td>REQ-001</td><td>用户注册与登录</td><td>功能需求</td><td>已确认</td><td>INT-01-L006</td></tr>
-    <tr><td>REQ-002</td><td>创建账本</td><td>功能需求</td><td>已确认</td><td>INT-01-L006</td></tr>
-    <tr><td>REQ-003</td><td>邀请码加入账本</td><td>功能需求</td><td>已确认</td><td>INT-01-L006</td></tr>
-    <tr><td>REQ-004</td><td>成员退出账本</td><td>功能需求</td><td>已确认</td><td>INT-01-L006</td></tr>
-    <tr><td>REQ-005</td><td>角色与权限控制</td><td>功能需求</td><td>已确认</td><td>INT-01-L004；实验要求三.所有项目</td></tr>
-    <tr><td>REQ-006</td><td>分类管理</td><td>功能需求</td><td>已确认</td><td>INT-01-L004；实验要求三.1</td></tr>
-    <tr><td>REQ-007</td><td>新增收支记录</td><td>功能需求</td><td>已确认</td><td>INT-01-L008、L010</td></tr>
-    <tr><td>REQ-008</td><td>提交审核与撤回</td><td>功能需求</td><td>已确认</td><td>INT-01-L010；实验要求三.1</td></tr>
-    <tr><td>REQ-009</td><td>审核与驳回</td><td>功能需求</td><td>已确认</td><td>INT-01-L010、L004</td></tr>
-    <tr><td>REQ-010</td><td>修改与删除记录</td><td>功能需求</td><td>已确认</td><td>INT-01-L010</td></tr>
-    <tr><td>REQ-011</td><td>作废已审核记录</td><td>功能需求</td><td>已确认</td><td>INT-01-L010；实验要求三.1</td></tr>
-    <tr><td>REQ-012</td><td>已审核记录更正</td><td>功能需求</td><td>已确认</td><td>INT-01-L011、L012、L014</td></tr>
-    <tr><td>REQ-013</td><td>凭证上传与重复凭证校验</td><td>功能需求</td><td>已确认</td><td>INT-01-L015～L018</td></tr>
-    <tr><td>REQ-014</td><td>多条件查询</td><td>功能需求</td><td>已确认</td><td>INT-01-L013、L014</td></tr>
-    <tr><td>REQ-015</td><td>预算设置</td><td>功能需求</td><td>已确认</td><td>INT-01-L004；实验要求三.1</td></tr>
-    <tr><td>REQ-016</td><td>分类统计与成员统计</td><td>功能需求</td><td>已确认</td><td>实验要求三.1；INT-01-L014</td></tr>
-    <tr><td>REQ-017</td><td>结算</td><td>功能需求</td><td>已确认</td><td>INT-01-L004；INT-02-L003、L004；实验要求三.1</td></tr>
-    <tr><td>REQ-018</td><td>操作日志记录与查询</td><td>功能需求</td><td>已确认</td><td>实验要求三.1、三.所有项目</td></tr>
-    <tr><td>REQ-019</td><td>接口会话校验</td><td>非功能需求</td><td>已确认</td><td>INT-02-L001、L002</td></tr>
-    <tr><td>REQ-020</td><td>结算与审核并发一致性</td><td>非功能需求</td><td>已确认</td><td>INT-02-L003、L004</td></tr>
-    <tr><td>REQ-021</td><td>易用性验收</td><td>非功能需求</td><td>已确认</td><td>INT-02-L005、L006</td></tr>
-    <tr><td>REQ-022</td><td>查询性能</td><td>非功能需求</td><td><span class="tag tag-pending">待确认</span></td><td>实验要求三.所有项目；INT-02-L005</td></tr>
-    <tr><td>REQ-023</td><td>数据关联与唯一性</td><td>约束</td><td>已确认</td><td>实验要求三.所有项目；INT-01-L012、L016</td></tr>
-    <tr><td>REQ-024</td><td>收支记录状态机</td><td>约束</td><td>已确认</td><td>实验要求三.所有项目；INT-01-L010～L012</td></tr>
-  </tbody>
-</table>
-
-<h1>附录 C. 人工审查索引</h1>
-<table>
-  <thead><tr><th style="width:10%">编号</th><th style="width:12%">相关需求</th><th style="width:50%">主要问题</th><th style="width:28%">最终处理</th></tr></thead>
-  <tbody>
-    <tr><td>REV-001</td><td>REQ-004</td><td>退出未要求先处理完自己的账，未覆盖待审核记录、未完成更正和未结清余额。</td><td>补充</td></tr>
-    <tr><td>REV-002</td><td>REQ-009</td><td>审核需求未写“不能审核本人提交的记录”，与 REQ-005 不一致。</td><td>补充</td></tr>
-    <tr><td>REV-003</td><td>REQ-012</td><td>未写“同一原记录同时只有一条待审核更正”，与 REQ-023 的唯一约束不一致。</td><td>补充</td></tr>
-    <tr><td>REV-004</td><td>REQ-013</td><td>把局部凭证规则写成全局“不能重复上传”，会错误阻止草稿、已驳回和更正复用。</td><td>修改</td></tr>
-    <tr><td>REV-005</td><td>REQ-017</td><td>未写结算与审核并发的功能行为，只有 REQ-020 的非功能指标。</td><td>补充</td></tr>
-    <tr><td>REV-006</td><td>REQ-008</td><td>遗漏课程要求中的“撤回”，与 REQ-024 状态机不一致。</td><td>补充</td></tr>
-  </tbody>
-</table>
-
-<p class="small muted" style="margin-top:18px">报告结束。完整访谈、AI 首次生成全文、三轮追问和六条审查记录见 chat.txt；完整需求字段和验收方法见 requirements.md。</p>
+<h1>附：需求整理与会谈内容</h1>
+<p>按业务模块概括需求：账号与账本（REQ-001～REQ-004）、成员与权限（REQ-005、REQ-006）、记账与凭证（REQ-007、REQ-010、REQ-013）、审核与状态（REQ-008、REQ-009、REQ-011、REQ-012、REQ-024）、查询与统计（REQ-014、REQ-016）、预算与结算（REQ-015、REQ-017）、日志与安全（REQ-018、REQ-019）、质量与约束（REQ-020～REQ-023）。完整正式访谈、补充沟通、初稿、后续追问与回答、审查记录保存在 chat.txt。</p>
+<p>甲方（INT-01-L002）：主要服务群体吧。比如我们宿舍，现在买东西后都是每个人算钱 aa，有点乱。我想让大家把宿舍收入和支出记在同一个账本里，方便管理。</p>
+<p>甲方（INT-01-L004）：分为普通成员、财务和管理员三种吧。普通成员记账，财务负责检查账目，管理员能够管理成员和类别。财务和管理员都能审核、设预算和结算，但是不能审核自己交的那笔。成员只能看自己参加的账本。</p>
+<p>甲方（INT-01-L008）：填收入或支出、金额、类别、日期、备注，可以选填照片。金额要大于零，最多两位小数，最高 100 万元。</p>
+<p>甲方（INT-01-L016）：同一个账本里，一份凭证不能同时用在两笔待审核或已审核的账上。更正可以沿用旧凭证，但最后只能算一笔。</p>
+<p>甲方（INT-02-L004）：待审核检查、汇总及快照写入必须按同一事务保护的一致视图执行。审核若先完成，结算必须包含它，结算若先合法关闭，后续影响该期间的写入必须失败。</p>
+<p>甲方（INT-02-L006）：建立比如 12 个角色的使用用例。邀请 1-2 名未使用过系统的测试者，看完说明后能否独立完成建账、记账提交、查统计三项任务。</p>
 
 </body>
 </html>
